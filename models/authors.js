@@ -2,14 +2,11 @@ const mongoose = require('mongoose');
 
 const Authorschema =  new mongoose.Schema({
 
-    name:{
-        type: String,
-       
-    },
-
+name:{
+    type:String
+},
     email: {
         type: String,
-        
 
     }
 })
