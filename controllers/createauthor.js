@@ -3,6 +3,7 @@ const app = express();
 const router = express.Router();
 const mongoose = require('mongoose');
 const authors = require('../models/authors');
+const Postmodel = require("../models/addpost");
 
 router.post('/author', function(req,res){ 
 
@@ -32,9 +33,49 @@ router.post('/author', function(req,res){
 
 });
 
-router.get('/alpha',function(req,res){
-    res.send('alpha');
+
+router.post('/addpost',function(req,res){
+    const Addpost = new Postmodel({
+        title:req.body.title,
+        body:req.body.body
+
+        
+    });
+
+    Addpost.save((error)=>{
+        
+        if (error) {
+            console.log(error)
+        } else {
+            res.status(200).json({
+                message:"Post added Successfully"
+            });
+            console.log(req.body);
+            
+            
+        };
+    });
+
+
 });
+
+
+router.get('/allauthors', function(req,res){
+
+    try {
+        const Getauthors =  authors.find().toArray
+       
+        res.send(Getauthors)
+        console.log(Getauthors);
+    } catch (error) {
+        console.log(error);
+        
+    }
+
+
+
+});
+
 
 
 module.exports = router;

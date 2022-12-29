@@ -3,18 +3,16 @@ const app = express();
 const router = express.Router();
 const authormodel = require("../models/authors")
 
-app.use("/",authormodel);
 
-
-
-router.get('/allauthors', async function(req,res){
+router.get('/allauthors', function(req,res){
 
     try {
-        const Getauthors = await authormodel.find().toArray()
+        const Getauthors =  authormodel.find();
         res.json({
             data:Getauthors.toArray
         });
         res.send(Getauthors.toArray)
+        console.log(Getauthors);
     } catch (error) {
         console.log(error);
         
@@ -23,3 +21,5 @@ router.get('/allauthors', async function(req,res){
 
 
 });
+
+module.exports = router;

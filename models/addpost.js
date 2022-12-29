@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 
-const Postschema = mongoose.Schema({
+const Postschema = new mongoose.Schema({
 
     title:{
         type:String,
@@ -18,4 +18,4 @@ const Postschema = mongoose.Schema({
 });
 
 
-module.exports = mongoose.model('Addpostmodel',Postschema);
+module.exports = mongoose.model('Posts',Postschema);
