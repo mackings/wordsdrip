@@ -2,6 +2,7 @@ const  express = require('express');
 const app = express();
 const Myrouter = require('./controllers/index');
 const Createauthor = require('./controllers/createauthor');
+const Getauthors = require("./controllers/getauthors");
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const mg = mongoose;
