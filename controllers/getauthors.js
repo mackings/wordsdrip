@@ -6,17 +6,18 @@ const authormodel = require("../models/authors")
 
 router.get('/allauthors', function(req,res){
 
-    try {
-        const Getauthors =  authormodel.find();
-        res.json({
-            data:Getauthors.toArray
-        });
-        res.send(Getauthors.toArray)
-        console.log(Getauthors);
-    } catch (error) {
-        console.log(error);
-        
-    }
+  const alldata =  authormodel.find((error)=>{
+        if (error) {
+            console.log(error);
+        } else {
+            res.status(200).json({
+                message:alldata
+            });
+            console.log(alldata);
+            
+        }
+
+    });
 
 
 

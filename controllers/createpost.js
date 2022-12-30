@@ -1,10 +1,10 @@
 const express = require("express");
+const app = express();
 const router = express.Router();
-const mongoose = require('mongoose');
 const Postmodel = require("../models/addpost");
 
 
-router.post('/addpost',function(req,res){
+router.post('/Addpost',function(req,res){
     const Addpost = new Postmodel({
         title:req.body.title,
         body:req.body.body

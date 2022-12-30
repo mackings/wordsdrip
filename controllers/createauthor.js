@@ -2,12 +2,12 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 const mongoose = require('mongoose');
-const authors = require('../models/authors');
-const Postmodel = require("../models/addpost");
+const authormodel = require('../models/authors');
+
 
 router.post('/author', function(req,res){ 
 
-   const author = new authors({
+   const author = new authormodel({
     name:req.body.name,
     email:req.body.email
    });
@@ -34,47 +34,9 @@ router.post('/author', function(req,res){
 });
 
 
-router.post('/addpost',function(req,res){
-    const Addpost = new Postmodel({
-        title:req.body.title,
-        body:req.body.body
-
-        
-    });
-
-    Addpost.save((error)=>{
-        
-        if (error) {
-            console.log(error)
-        } else {
-            res.status(200).json({
-                message:"Post added Successfully"
-            });
-            console.log(req.body);
-            
-            
-        };
-    });
-
-
-});
-
-
-router.get('/allauthors', function(req,res){
-
-    try {
-        const Getauthors =  authors.find().toArray
-       
-        res.send(Getauthors)
-        console.log(Getauthors);
-    } catch (error) {
-        console.log(error);
-        
-    }
 
 
 
-});
 
 
 
