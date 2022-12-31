@@ -6,8 +6,9 @@ router.get('/',function(req,res){
 
     res.status(200).json({
         message:"Powered by WordsDrip",
+        greetings:"May the  New Year Favour you",
         date:Date,
-        developer:"Mac Kingsley"
+        Signed:"Mac Kingsley"
     })
 })
 

@@ -7,11 +7,15 @@ const mg = mongoose;
 const home = require("./home");
 const Postcontroller = require("./Postcontroller/Postscontroller");
 const Authorcontroller = require("./Authorscontroller/Authorscontroller");
+const Usercontroller = require("./Userscontroller/userscontroller");
+
 
 app.use(express.json());
 app.use('/',home);
 app.use('/', Postcontroller);
 app.use('/', Authorcontroller);
+app.use('/',Usercontroller);
+
 
 
 
