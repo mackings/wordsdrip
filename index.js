@@ -6,10 +6,12 @@ const dotenv = require('dotenv').config();
 const mg = mongoose;
 const home = require("./home");
 const Postcontroller = require("./Postcontroller/Postscontroller");
+const Authorcontroller = require("./Authorscontroller/Authorscontroller");
 
 app.use(express.json());
 app.use('/',home);
 app.use('/', Postcontroller);
+app.use('/', Authorcontroller);
 
 
 

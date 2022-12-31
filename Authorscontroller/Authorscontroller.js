@@ -34,6 +34,21 @@ router.post('/createauthor', function(req,res){
 });
 
 
+//GET AUTHORS
+
+router.get('/getauthors', async function(req,res){
+
+    const allauthors = await  authormodel.find();
+    console.log(allauthors);
+
+    res.status(200).json({
+        message:allauthors
+});
+   
+
+});
+
+
 module.exports = router;
 
 
