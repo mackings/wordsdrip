@@ -4,6 +4,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const user = require("../models/users");
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 const saltrounds = 10;
 
 
@@ -11,7 +12,7 @@ const saltrounds = 10;
 
 router.post("/register", async function(req,res){
 
-    const hashedpassword = await bcrypt.hash(req.body.password,saltrounds);
+   const hashedpassword = await bcrypt.hash(req.body.password,saltrounds);
     const User = new user({
         name:req.body.name,
         email:req.body.email,
@@ -28,6 +29,7 @@ router.post("/register", async function(req,res){
             console.log(error);
             
         } else {
+            
             res.status(200).json({
                 message:"User Successfully Registered"
             });
@@ -51,20 +53,10 @@ router.post("/login", async function(req,res){
     if (euser) {
         console.log("User was found");
         console.log(euser.password);
-        // const comp =  bcrypt.compare(req.body.password,euser.password);
-        // if (comp) {
-        //     res.json({
-        //         message:"Password Was found"
-        //     });
-        // } else {
-        //     res.json({
-        //         message:"Password Was not found"
-        //     });
-            
-        // }
+       
         res.status(200).json({
             message:"User Was found"
-        });
+        }); 
        
 
     } else {

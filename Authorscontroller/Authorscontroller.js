@@ -3,6 +3,7 @@ const app = express();
 const router = express.Router();
 const mongoose = require('mongoose');
 const authormodel = require('../models/Author');
+const jwt = require('jsonwebtoken');
 
 
 router.post('/createauthor', function(req,res){ 
