@@ -34,16 +34,46 @@ router.post('/Addpost',function(req,res){
 
 //GET POSTS
 
-router.get('/getposts', async function(req,res){
+router.get('/getposts', verifytoken, async function(req,res){
 
-    const allposts = await  Postmodel.find();
+
+
+jwt.verify(req.token,"mys", async (error)=>{
+    if (error) {
+        res.statusCode(403).json({
+            message:"Forbidded your Pass"
+        });
+    } else {
+        const allposts = await  Postmodel.find();
     console.log(allposts);
 
     res.status(200).json({
         message:allposts
 });
+        
+    }
+})
    
 
 });
 
+function verifytoken(req,res,next){
+
+    const header = req.headers["authorizaton"];
+    if (typeof header !== "undefined") {
+        const token = header.split(' ')[1];
+        req.token = token;
+
+        next();
+        console.log(token);
+    } else {
+        res.status(403).json({
+            message:"You are not Authorized"
+        });
+        
+    }
+
+}
+
 module.exports = router;
+//module.exports = verifytoken;

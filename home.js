@@ -8,7 +8,7 @@ router.get('/',function(req,res){
         message:"Powered by WordsDrip",
         greetings:"May the  New Year Favour you",
         date:Date,
-        user:"Izzy"
+        user:"Mac Kingsley"
     })
 })
 
