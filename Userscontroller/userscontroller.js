@@ -49,12 +49,12 @@ router.post("/login", async function(req,res){
         email:req.body.email,
         password:req.body.password
     });
-     
+      
     const euser =  await user.findOne({email:req.body.email });
     if (euser) {
         console.log("User was found");
         console.log(euser.password);
-        const token = jwt.sign( {user:euser.email,}, "mys",(error, token)=>{
+        const token = jwt.sign({euser}, "jwt", (error, token)=>{
           if (error) {
             console.log(error)
           } else {

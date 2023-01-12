@@ -6,7 +6,8 @@ const bookmodel = require("../models/bookmodel");
 router.post("/Addbook", async function(req,res){
     const  Addbook = new bookmodel({
        title:req.body.title,
-       main:req.body.main
+       synopsis:req.body.synopsis,
+       content:req.body.content 
     });
 
 const addbooks = await Addbook.save((error)=>{
@@ -39,10 +40,14 @@ router.get("/books", async function(req, res){
         books:allbooks
     })
     
-  }else{
+  }else if(allbooks == null){
     res.status(400).json({
         message:"No Books yet"
     })
+  }else{
+    res.status(400).json({
+      message:"No Books were found"
+  })
   }
 
 });

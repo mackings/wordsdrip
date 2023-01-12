@@ -34,21 +34,23 @@ router.post('/Addpost',function(req,res){
 
 //GET POSTS
 
-router.get('/getposts', verifytoken, async function(req,res){
+router.get('/getposts', verifytoken, function(req,res){
 
 
 
-jwt.verify(req.token,"mys", async (error)=>{
+jwt.verify(req.token,"jwt",  (error,data)=>{
     if (error) {
         res.statusCode(403).json({
-            message:"Forbidded your Pass"
+            message:"Forbidded your Pass",
+            data:data
         });
     } else {
-        const allposts = await  Postmodel.find();
+        const allposts =  Postmodel.find();
     console.log(allposts);
 
     res.status(200).json({
-        message:allposts
+        message:allposts,
+        data:data
 });
         
     }
@@ -59,21 +61,21 @@ jwt.verify(req.token,"mys", async (error)=>{
 
 function verifytoken(req,res,next){
 
-    const header = req.headers["authorizaton"];
-    if (typeof header !== "undefined") {
-        const token = header.split(' ')[1];
-        req.token = token;
+    const bheader = req.headers["Authorizaton"];
+    if (typeof bheader !== "undefined") {
+        const tokens = bheader.split("")[1];
+        req.token = tokens;
 
         next();
-        console.log(token);
+       
     } else {
         res.status(403).json({
             message:"You are not Authorized"
         });
+        console.log(bheader);
         
     }
 
 }
 
 module.exports = router;
-//module.exports = verifytoken;

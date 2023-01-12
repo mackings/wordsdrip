@@ -5,9 +5,15 @@ const Bookschema = mongoose.Schema({
         type:String
       },
 
-      main:{
+      synopsis:{
         type:String
       },
+
+      content:{
+        type:String
+      },
+
+    
 
       
 });
