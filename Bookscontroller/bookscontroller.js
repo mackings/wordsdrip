@@ -34,8 +34,8 @@ const addbooks = await Addbook.save((error)=>{
 }
 
 
-router.get("/books", async function(req, res){
 
+exports.getBooks = async (req,res)=>{
   const allbooks = await bookmodel.find({});
   if (allbooks) {
     res.status(200).json({
@@ -52,25 +52,25 @@ router.get("/books", async function(req, res){
   })
   }
 
-});
-router.get("/books/:id", async function(req, res){
 
-    const allbooks = await bookmodel.findOne({_id:req.params.id});
-    if (allbooks) {
-      res.status(200).json({
-          books:allbooks
-      })
-      
-    }else{
-      res.status(400).json({
-          message:"No Books  was found"
-      })
-    }
+}
+exports.getBooksbyid = async (req,res)=>{
   
-  });
+  const allbooks = await bookmodel.findOne({_id:req.params.id});
+  if (allbooks) {
+    res.status(200).json({
+        books:allbooks
+    })
+    
+  }else{
+    res.status(400).json({
+        message:"No Books  was found"
+    })
+  }
 
-  router.get("/books/search/:name", async function(req, res){
+}
 
+exports.Searchbooks =  async (req,res)=>{
     const allbooks = await bookmodel.find({title:req.params.name});
     if (allbooks) {
       res.status(200).json({
@@ -82,7 +82,11 @@ router.get("/books/:id", async function(req, res){
           message:"No Books  was found"
       })
     }
-  
-  });
 
-module.exports = router;
+
+}
+
+
+
+
+

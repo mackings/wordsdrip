@@ -9,7 +9,7 @@ const userRouter = require("./Routes/userroute");
 
 
 app.use(express.json());
-app.use("/api",userRouter);
+app.use("/",userRouter);
 
 
 mg.connect(process.env.DBURL,{
