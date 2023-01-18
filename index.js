@@ -1,26 +1,15 @@
+const dotenv = require('dotenv').config();
 const  express = require('express'); 
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const dotenv = require('dotenv').config();
 const mg = mongoose;
 const home = require("./home");
-const Postcontroller = require("./Postcontroller/Postscontroller");
-const Authorcontroller = require("./Authorscontroller/Authorscontroller");
-const Usercontroller = require("./Userscontroller/userscontroller");
-const Bookcontroller = require("./Bookscontroller/bookscontroller");
-
+const userRouter = require("./Routes/userroute");
 
 
 app.use(express.json());
-app.use('/',home);
-app.use('/', Postcontroller);
-app.use('/', Authorcontroller);
-app.use('/',Usercontroller);
-app.use('/',Bookcontroller);
-
-
-
+app.use("/api",userRouter);
 
 
 mg.connect(process.env.DBURL,{

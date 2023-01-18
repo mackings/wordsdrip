@@ -2,19 +2,21 @@ const express = require("express");
 const app = express();
 const router = express.Router();
 const Postmodel = require("../models/addpost");
+const jwt = require("jsonwebtoken");
+const verifytoken = require("../middlewares/jwt");
 
 
 
 
-router.post('/Addpost',function(req,res){
-    const Addpost = new Postmodel({
+exports.Addpost = (req,res)=>{
+    const Savepost = new Postmodel({
         title:req.body.title,
         body:req.body.body
 
         
     });
 
-    Addpost.save((error)=>{
+    Savepost.save((error)=>{
         
         if (error) {
             console.log(error)
@@ -29,53 +31,23 @@ router.post('/Addpost',function(req,res){
     });
 
 
-});
+};
 
 
 //GET POSTS
 
-router.get('/getposts', verifytoken, function(req,res){
-
-
-
-jwt.verify(req.token,"jwt",  (error,data)=>{
-    if (error) {
-        res.statusCode(403).json({
-            message:"Forbidded your Pass",
-            data:data
+exports.getposts = async (req,res)=>{
+    try {
+        const viewposts = await Postmodel.find({});
+        res.status(200).json({ 
+            message:"Successful",
+            data:viewposts
         });
-    } else {
-        const allposts =  Postmodel.find();
-    console.log(allposts);
-
-    res.status(200).json({
-        message:allposts,
-        data:data
-});
         
+    } catch (error) {
+       res.status(500) .json({
+        message:"Server Error"
+       })
     }
-})
-   
-
-});
-
-function verifytoken(req,res,next){
-
-    const bheader = req.headers["Authorizaton"];
-    if (typeof bheader !== "undefined") {
-        const tokens = bheader.split("")[1];
-        req.token = tokens;
-
-        next();
-       
-    } else {
-        res.status(403).json({
-            message:"You are not Authorized"
-        });
-        console.log(bheader);
-        
-    }
-
 }
 
-module.exports = router;

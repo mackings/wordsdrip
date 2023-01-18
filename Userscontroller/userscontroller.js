@@ -54,7 +54,7 @@ router.post("/login", async function(req,res){
     if (euser) {
         console.log("User was found");
         console.log(euser.password);
-        const token = jwt.sign({euser}, "jwt", (error, token)=>{
+        const token = jwt.sign({euser}, "jwt", {expiresIn:"1h"},(error, token)=>{
           if (error) {
             console.log(error)
           } else {
