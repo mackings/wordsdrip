@@ -6,10 +6,12 @@ const bodyParser = require('body-parser');
 const mg = mongoose;
 const home = require("./home");
 const userRouter = require("./Routes/userroute");
+const { verifytoken } = require('./middlewares/jwt');
 
 
 app.use(express.json());
 app.use("/",userRouter);
+//app.use("/",verifytoken);
 
 
 mg.connect(process.env.DBURL,{

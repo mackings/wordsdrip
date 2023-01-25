@@ -1,15 +1,23 @@
 const express = require("express");
+const { Createauthor ,Getauthors} = require("../Authorscontroller/Authorscontroller");
 const { Addbook, getBooks , getBooksbyid , Searchbooks} = require("../Bookscontroller/bookscontroller");
-//const verifytoken = require("../middlewares/jwt");
+const { home } = require("../home");
 const { Addpost, getposts } = require("../Postcontroller/Postscontroller");
+const { Register , login} = require("../Userscontroller/userscontroller");
+
+
 
 
 const router = express.Router();
-
+router.get("/",home);
+router.post("/Register", Register);
+router.post("/login", login);
 router.post("/Uploadpost", Addpost);
+router.post("/Createauthor", Createauthor);
 router.post("/uploadbook", Addbook);
-router.get("/viewposts", getposts);
-router.get("/Allbooks", getBooks);
+router.get("/getposts", getposts);
+router.get("/Getauthors", Getauthors);
+router.get("/allbooks", getBooks);
 router.get("/Allbooks/:id", getBooksbyid);
 router.get("/Allbooks/search/:name", Searchbooks);
 

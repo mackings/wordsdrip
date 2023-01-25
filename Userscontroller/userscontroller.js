@@ -10,9 +10,9 @@ const saltrounds = 10;
 
 
 
-router.post("/register", async function(req,res){
+exports.Register = async (req,res)=>{
 
-   const hashedpassword = await bcrypt.hash(req.body.password,saltrounds);
+    const hashedpassword = await bcrypt.hash(req.body.password,saltrounds);
     const User = new user({
         name:req.body.name,
         email:req.body.email,
@@ -38,13 +38,11 @@ router.post("/register", async function(req,res){
         }
 
     });
-   
-    
-    
-});
+
+}
 
 
-router.post("/login", async function(req,res){
+exports.login = async  (req,res)=>{
     const userlogin = new user({
         email:req.body.email,
         password:req.body.password
@@ -74,6 +72,8 @@ router.post("/login", async function(req,res){
             message:"User Was  Not found"
         });
     }
-})
 
-module.exports = router;
+
+}
+
+

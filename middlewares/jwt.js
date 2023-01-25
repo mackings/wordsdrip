@@ -11,18 +11,19 @@ exports.verifytoken  = async (req,res,next)=>{
     
         if (!token) {
           return res.status(401).json({ message: 'Token Is missing' });
-        }
-    
-        const decoded = await jwt.verify(token, process.env.SECRET_KEY); 
+        }  
+        const decoded = jwt.verify(token, "jwt"); 
         if (!decoded) {
           throw new Error();
         }
+        next();
+        console.log(decoded);
         req.user = decoded;
         next();
       } catch (error) {
         return res
           .status(401)
-          .json({ message: 'Token expired', error: error.message });
+          .json({ message: 'Token Error', error: error.message });
       }
 
     

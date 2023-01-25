@@ -1,4 +1,5 @@
 const express = require ("express");
+const { verifytoken } = require("../middlewares/jwt");
 const router = express.Router();
 const bookmodel = require("../models/bookmodel");
 
@@ -35,7 +36,7 @@ const addbooks = await Addbook.save((error)=>{
 
 
 
-exports.getBooks = async (req,res)=>{
+exports.getBooks = verifytoken , async  (req,res)=>{
   const allbooks = await bookmodel.find({});
   if (allbooks) {
     res.status(200).json({
