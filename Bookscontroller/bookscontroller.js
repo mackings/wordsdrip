@@ -88,6 +88,22 @@ exports.Searchbooks =  async (req,res)=>{
 }
 
 
+exports.preview =(req,res)=>{
+  
+const thebook = bookmodel({
+  name:req.body.name,
+  email:req.body.email
+});
+let dbooks = thebook.save((error)=>{
+  if (error) {
+    
+  } else {
+    
+  }
+})
+
+
+}
 
 
 

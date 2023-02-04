@@ -8,6 +8,11 @@ name:{
     email: {
         type: String,
 
+    },
+    followers:{
+        type:[String],
+        default:0
+
     }
 })
 
