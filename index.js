@@ -25,4 +25,5 @@ mg.connect(process.env.DBURL,{
 
 
 app.listen(process.env.PORT|| 5000 );
-//"start": "nodemon index js"
+//"start": "nodemon index js"#
+//composite
