@@ -7,11 +7,13 @@ const mg = mongoose;
 const home = require("./home");
 const userRouter = require("./Routes/userroute");
 const { verifytoken } = require('./middlewares/jwt');
+const cluster = require('cluster');
+const pro = require("os").cpus().length;
 
 
 app.use(express.json());
 app.use("/",userRouter);
-//app.use("/",verifytoken);
+
 
 
 mg.connect(process.env.DBURL,{
@@ -22,8 +24,21 @@ mg.connect(process.env.DBURL,{
     );
 
 
+    if (cluster.isPrimary) {
+        console.log("Cluster set");
 
 
-app.listen(process.env.PORT|| 5000 );
+        for(let i = 0;i<pro;i++){
+            cluster.fork();
+        }
+    } else {
+        app.listen(process.env.PORT|| 5000 ); 
+        console.log(pro);
+        
+    }
+
+
+
+//app.listen(process.env.PORT|| 5000 ); 
 //"start": "nodemon index js"#
 //composite
