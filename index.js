@@ -8,11 +8,13 @@ const home = require("./home");
 const userRouter = require("./Routes/userroute");
 const { verifytoken } = require('./middlewares/jwt');
 const cluster = require('cluster');
+const morgan = require("morgan");
 const pro = require("os").cpus().length;
 
 
 app.use(express.json());
 app.use("/",userRouter);
+app.use(morgan("dev"));
 
 
 

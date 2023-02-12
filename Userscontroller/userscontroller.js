@@ -22,7 +22,7 @@ exports.Register = async (req,res)=>{
 
 
     User.save((error)=>{
-        if (error) {
+        if (error) {  
             res.status(500).json({
                 error:"An error Occoured, Please Try Again"
             });
@@ -50,9 +50,9 @@ exports.login = async  (req,res)=>{
       
     const euser =  await user.findOne({email:req.body.email });
     if (euser) {
-        console.log("User was found");
-        console.log(euser.password);
-        const token = jwt.sign({euser}, "jwt", {expiresIn:"1h"},(error, token)=>{
+        const umail = euser.email;
+        console.log("User was found");      
+        const token = jwt.sign({umail}, "jwt", {expiresIn:"1h"},(error, token)=>{
           if (error) {
             console.log(error)
           } else {

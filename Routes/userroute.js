@@ -2,6 +2,7 @@ const express = require("express");
 const { Createauthor ,Getauthors ,followauthor,follow} = require("../Authorscontroller/Authorscontroller");
 const { Addbook, getBooks , getBooksbyid , Searchbooks} = require("../Bookscontroller/bookscontroller");
 const { home } = require("../home");
+const { verifytoken } = require("../middlewares/jwt");
 const { Addpost, getposts } = require("../Postcontroller/Postscontroller");
 const { Register , login} = require("../Userscontroller/userscontroller");
 
@@ -16,7 +17,7 @@ router.post("/login", login);
 router.post("/Uploadpost", Addpost);
 router.post("/Createauthor", Createauthor);
 router.post("/uploadbook", Addbook);
-router.get("/getposts", getposts);
+router.get("/getposts", verifytoken, getposts);
 router.get("/Getauthors", Getauthors);
 router.get("/allbooks", getBooks);
 router.get("/Allbooks/:id", getBooksbyid);

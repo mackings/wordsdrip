@@ -36,7 +36,7 @@ exports.Addpost = (req,res)=>{
 
 //GET POSTS
 
-exports.getposts = async (req,res)=>{
+exports.getposts =  async (req,res)=>{
     try {
         const viewposts = await Postmodel.find({});
         res.status(200).json({ 
