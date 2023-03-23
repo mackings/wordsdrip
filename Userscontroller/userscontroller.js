@@ -49,7 +49,10 @@ exports.login = async  (req,res)=>{
     });
       
     const euser =  await user.findOne({email:req.body.email });
-    if (euser) {
+    const checkpass = bcrypt.compare(euser.password,userlogin.password);
+    console.log(userlogin.password);
+    console.log(euser.password);
+    if (euser && checkpass) {
         const umail = euser.email;
         console.log("User was found");      
         const token = jwt.sign({umail}, "jwt", {expiresIn:"1h"},(error, token)=>{
