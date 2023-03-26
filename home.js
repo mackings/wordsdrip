@@ -8,10 +8,10 @@ const thecpu = require("os").cpus().length;
 exports.home = (req,res)=>{
     
     res.status(200).json({
-        message:"Powered by WordsDrip",
-        greetings:"May the  New Year Favour you",
+        message:"Powered by Mac kingsley",
+        greetings:"On a Lowkey You",
         date:Date,
-        user:"Mac Kingsley"
+        user:"You"
     })
    
 

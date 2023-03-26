@@ -1,6 +1,7 @@
 FROM node:19
 WORKDIR /index
-COPY ./ index
+COPY package*.json ./
 RUN npm install
-CMD [ "node","index.js" ]
+COPY . .
 EXPOSE 3000
+CMD [ "node","index.js" ]
