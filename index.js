@@ -20,7 +20,8 @@ app.use(morgan("dev"));
 
 mg.connect(process.env.DBURL,{
     useNewUrlParser:true,
-    useUnifiedTopology:true
+    useUnifiedTopology:true,
+    
 },
     console.log("Connected to DB")
     );
@@ -40,7 +41,3 @@ mg.connect(process.env.DBURL,{
     }
 
 
-
-//app.listen(process.env.PORT|| 5000 ); 
-//"start": "nodemon index js"#
-//composite

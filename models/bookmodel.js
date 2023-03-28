@@ -1,7 +1,33 @@
 const mongoose = require("mongoose");
 
-const Bookschema = mongoose.Schema({
-      title:{
+
+const chapterschema = new mongoose.Schema({
+
+
+  chaptertitle:{
+    type:String
+  },
+
+  content:{
+    type:String
+  },
+
+});
+
+
+
+const Bookschema = new mongoose.Schema({
+
+      author:{
+       type:mongoose.Schema.Types.ObjectId,
+       ref:"Authors"
+       },
+
+       title:{
+        type:String
+      },
+
+      status:{
         type:String
       },
 
@@ -9,12 +35,8 @@ const Bookschema = mongoose.Schema({
         type:String
       },
 
-      content:{
-        type:String
-      },
 
-    
-
+       chapters:[chapterschema]
       
 });
 
