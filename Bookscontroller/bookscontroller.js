@@ -9,15 +9,43 @@ const chapee = require("../models/chapter");
 
 
 
+exports.Searchtags =(req,res)=>{
 
+    try {
+        const search = req.params.id;
+        bookmodel.find({tags:{$in:search}},(error,books)=>{
+            if (error) {
+                res.status(500).json({
+                    message:"Tag could not be found"
+                });
+            }else{
+                res.status(200).json({
+                    message:books
+                });
+            }
+
+        });
+        
+    } catch (error) {
+        res.status(500).json({
+            message:"Tag could not be found"
+        });
+        
+    }
+}
 
 exports.Addbook =  async ( req,res)=>{
 
+
+
+try {
+    
   const  Addbook = new bookmodel({
     author:req.body._id,
     title:req.body.title,
     synopsis:req.body.synopsis,
-    status:req.body.status
+    status:req.body.status,
+    tags:req.body.tags
  });
 
  const findauthor =  await Author.findById(req.params.id);
@@ -42,6 +70,17 @@ exports.Addbook =  async ( req,res)=>{
 
     
  }
+    
+} catch (error) {
+
+    res.status(500).json({
+        status:"Falied",
+        data:"Book was not Published",
+        error:" Writer? Please Activate Author Mode"
+
+    })
+    
+}
 
 
 }

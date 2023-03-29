@@ -36,7 +36,9 @@ const Bookschema = new mongoose.Schema({
       },
 
 
-       chapters:[chapterschema]
+       chapters:[chapterschema],
+       
+       tags:[String]
       
 });
 

@@ -1,11 +1,23 @@
 const mongoose = require('mongoose');
 
+const following = new mongoose.Schema({
+
+    name:{
+        type:String
+    },
+    id:{
+        type:String
+    }
+
+});
+
+
 const Authorschema =  new mongoose.Schema({
 
 name:{
     type:String
     },
-    
+
     email: {
         type: String,
 
@@ -16,11 +28,7 @@ name:{
     }],
 
     
-    followers:{
-        type:[String],
-        default:0
-
-    }
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }],
 })
 
 module.exports = mongoose.model('Authors',Authorschema);
