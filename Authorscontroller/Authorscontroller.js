@@ -22,7 +22,8 @@ exports.Createauthor = (req,res)=>{
     
             res.status(200);
             res.json({
-                message:"Successfully added Authors"
+                message:"Successfully added Authors",
+                authorid:author._id
             })
             console.log(req.body);
             
@@ -59,8 +60,8 @@ exports.follow = async (req,res)=> {
     const find = authormodel.findOne({_id:authors});
 
     if (find) {
-        const updates = await authormodel.findOneAndUpdate({_id:authors}, {$push:{followers:authors}},{new:true},(error)=>{
-           // console.log(error);
+        const updates = 
+        await authormodel.findOneAndUpdate({_id:authors}, {$push:{followers:authors}},{new:true},(error)=>{
             
         },res.status(200).json({
             message:"Succesfully followed User"

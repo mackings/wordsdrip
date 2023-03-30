@@ -64,7 +64,8 @@ try {
     console.log("Author not found");
     res.status(500).json({
         status:"Falied",
-        data:"Book was not Published"
+        data:"Book was not Published",
+        mesage:"Activate Author Mode"
     })
 
 
@@ -73,10 +74,10 @@ try {
     
 } catch (error) {
 
-    res.status(500).json({
+    res.status(400).json({
         status:"Falied",
         data:"Book was not Published",
-        error:" Writer? Please Activate Author Mode"
+        message:" Writer? Please Activate Author Mode"
 
     })
     

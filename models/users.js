@@ -16,9 +16,10 @@ const Userschema = new  mongoose.Schema({
     password:{
         type:String
     },
-    following: [{ 
+
+    following:[{ 
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Author' 
+        ref: 'Authors' 
     }],
 
 
