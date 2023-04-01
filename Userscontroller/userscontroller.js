@@ -62,7 +62,7 @@ exports.Register = async (req,res)=>{
 }
 
 
-exports.login =  async  (req,res,next)=>{
+exports.login =  async  (req,res)=>{
 
 
     try {
@@ -230,6 +230,7 @@ exports.getfollows = async (req,res)=>{
             res.status(200).json({
                 Following:[myself]
             });
+           
             
         } else {
             res.status(400).json({

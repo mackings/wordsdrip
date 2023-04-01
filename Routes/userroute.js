@@ -20,7 +20,7 @@ router.post("/Addchapter/:id", addchapter);
 router.get("/Allposts", verifytoken, getposts);
 router.get("/Allauthors", Getauthors);
 router.get("/Allfollowers/:id", getfollowers);
-router.get("/Allfollows/:id", getfollows);
+router.get("/Allfollows/:id",verifytoken, getfollows);
 router.get("/Getmybooks/:id", findmybooks);
 router.get("/searchtag/:id", Searchtags);
 router.get("/Allbooks", getBooks);
