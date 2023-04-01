@@ -7,6 +7,7 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const saltrounds = 10;
 const Author = require("../models/Author");
+const { verifytoken } = require("../middlewares/jwt");
 
 
 
@@ -46,24 +47,6 @@ exports.Register = async (req,res)=>{
         
     }
 
-
-    // User.save((error)=>{
-    //     if (error) {  
-    //         res.status(500).json({
-    //             error:"An error Occoured, Please Try Again"
-    //         });
-    //         console.log(error);
-            
-    //     } else {
-            
-    //         res.status(200).json({
-    //             message:"User Successfully Registered"
-    //         });
-    //         console.log(User);
-            
-    //     }
-
-    // });
         
     } catch (error) {
         console.log(error);
@@ -79,7 +62,7 @@ exports.Register = async (req,res)=>{
 }
 
 
-exports.login = async  (req,res)=>{
+exports.login =  async  (req,res,next)=>{
 
 
     try {
@@ -99,7 +82,9 @@ exports.login = async  (req,res)=>{
             res.status(200).json({
                 message:"Sucessfully Logged in",
                 id:euser._id,
+                coins:euser.coins,
                 authorid:author??"Not an Author",
+                following:euser.following??"You are not following anyone",
                 token:token,
                 
             });
@@ -140,26 +125,25 @@ exports.followauthor =  async (req,res)=>{
         const userdata = new usermodel({
 
             authorId:req.body.authorid,
-            userId:req.body._id,
+            user:req.body._id,
             
         });
         const author = await Author.findById(req.params.id);
+        const reader = await usermodel.findById(req.body.user);
     
         if (!author) {
           return res.status(404).json({ error: 'Author not found' });
         }
     
-        const user = await usermodel.findById(userdata.userId);
-        console.log(user.following);
     
-        if (user.following.includes(author)) {
+        if (reader.following.includes(req.params.id)) {
           return res.status(400).json({ error: 'Already following the author' });
         }
     
-        user.following.push(author);
+        reader.following.push(author);
         author.followers.push(userdata);
     
-        await user.save();
+        await reader.save();
         await author.save();
     
         res.json({ message: 'Successfully followed the author' });
@@ -168,5 +152,103 @@ exports.followauthor =  async (req,res)=>{
         res.status(500).json({ error: 'Something went wrong' });
       }
 }
+
+
+
+
+
+exports.unfollowauthor =  async (req,res)=>{
+
+
+    try {
+        const userdata = new usermodel({
+
+            authorId:req.body.authorid,
+            user:req.body._id,
+            
+        });
+        const author = await Author.findById(req.params.id);
+        const reader = await usermodel.findById(req.body.user);
+    
+        if (!author) {
+          return res.status(404).json({ error: 'Author not found' });
+        }
+    
+    
+        if (reader.following.includes(req.params.id)) {
+        reader.following.pop(author);
+        author.followers.pop(userdata);
+    
+        await reader.save();
+        await author.save();
+          return res.status(400).json({ error: 'Successfully Unfollowed the author' });
+        }
+    
+    
+        res.json({ message: 'Successfully Unfollowed the author' });
+      } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: 'Something went wrong' });
+      }
+}
+
+
+exports.getfollowers = async (req,res)=>{
+
+    try {
+        const myself =  await Author.findById(req.params.id).populate('followers');
+        if (myself) {
+            console.log(myself);
+            res.status(200).json({
+                Followers:myself
+            });
+            
+        } else {
+            res.status(400).json({
+                Followers:"You have no followers"
+            });
+            
+        }
+        
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({
+            Followers:"You have no followers"
+        });
+        
+    }
+
+}
+
+
+exports.getfollows = async (req,res)=>{
+
+    try {
+        const myself =  await usermodel.findById(req.params.id).populate('following');
+        if (myself) {
+            console.log(myself);
+            res.status(200).json({
+                Following:[myself]
+            });
+            
+        } else {
+            res.status(400).json({
+                Followers:"You are not following anyone"
+            });
+            
+        }
+        
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({
+            Followers:"Error getting people you follow"
+        });
+        
+    }
+
+}
+
+
+
 
 
