@@ -131,6 +131,36 @@ exports.addchapter = async (req,res,next)=>{
 
 }
 
+exports.viewbook =  async (req,res)=>{
+
+    try {
+        const view = await bookmodel.findById(req.params.id);
+        if (view) {
+            view.views++
+            view.save();
+            res.status(200).json({
+                message:"Success",
+                confirmation:"Welcome "
+            });
+        } else {
+            res.status(500).json({
+                message:"Error",
+                confirmation:"Could not find Book"
+            });
+        }
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message:"Error",
+            confirmation:"Could not find Book"
+        });
+
+        
+    }
+
+}
+
 
 exports.findmybooks = async(req,res)=>{
     const getmybooks = await Author.findById(req.params.id).populate("books");
@@ -177,7 +207,8 @@ exports.getBooksbyid = async (req,res)=>{
   const allbooks = await bookmodel.findOne({_id:req.params.id});
   if (allbooks) {
     res.status(200).json({
-        books:allbooks
+        books:allbooks,
+        
     })
     
   }else{

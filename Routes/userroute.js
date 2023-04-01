@@ -1,6 +1,6 @@
 const express = require("express");
 const { Createauthor ,Getauthors} = require("../Authorscontroller/Authorscontroller");
-const { Addbook, getBooks , getBooksbyid , Searchbooks, findmybooks, addchapter, Searchtags} = require("../Bookscontroller/bookscontroller");
+const { Addbook, getBooks , getBooksbyid , Searchbooks, findmybooks, addchapter, Searchtags, viewbook} = require("../Bookscontroller/bookscontroller");
 const { home } = require("../home");
 const { verifytoken } = require("../middlewares/jwt");
 const { Addpost, getposts } = require("../Postcontroller/Postscontroller");
@@ -17,6 +17,7 @@ router.post("/Uploadpost", Addpost);
 router.post("/Createauthor", Createauthor);
 router.post("/Addbook/:id", Addbook);
 router.post("/Addchapter/:id", addchapter);
+router.post("/Viewbook/:id", viewbook);
 router.get("/Allposts", verifytoken, getposts);
 router.get("/Allauthors", Getauthors);
 router.get("/Allfollowers/:id", getfollowers);

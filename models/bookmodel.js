@@ -38,7 +38,12 @@ const Bookschema = new mongoose.Schema({
 
        chapters:[chapterschema],
        
-       tags:[String]
+       tags:[String],
+
+       views:{
+        type:Number,
+        default:0
+       }
       
 });
 

@@ -8,7 +8,6 @@ try {
   const verifyit = jwt.verify(token,"jwt");
   if (verifyit) {
     console.log("Verified Token");
-    //console.log(verifyit);
     next();
     
   } else {
@@ -19,7 +18,7 @@ try {
 
     
   }
-
+   
   
 } catch (error) {
   console.log(error);
